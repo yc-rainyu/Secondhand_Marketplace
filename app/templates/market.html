@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Marketplace{% endblock %}
+
+
+{% block content %}
+ <!-- banner -->
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-card">
+                    <h1>Ready to declutter your wardrobe?</h1>
+                    <div class="card-actions">
+                        <a href="{{ url_for('upload') }}" class="btn sell-btn" style="background-color: #4a6fa5; color: white; padding: 13px 0; font-size: 19px">Get Start</a>
+                        <a href="#" class="how-it-works">Learn how it works</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <header class="category-nav-header">
+            <div class="container header-main">
+            </div>
+            <nav class="category-nav">
+                <div class="container">
+                    <ul class="category-list">
+                        <li>
+                            <a href="{{ url_for('market') }}"
+                               class="{% if not current_category %}active{% endif %}">
+                                All
+                            </a>
+                        </li>
+                        {% for category in [ 'book', 'daily', 'digital', 'others' ] %}
+                        <li>
+                            <a href="{{ url_for('market', category=category) }}"
+                               class="{% if current_category == category %}active{% endif %}">
+                                {{ category.capitalize() }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- content -->
+        <section class="product-feed">
+            <div class="container">
+                <div class="product-grid">
+                    {% for p in products %}
+                    <span class="product-link">
+                        <article class="product-card">
+                            <div class="image-wrapper">
+                                <a href="{{ url_for('product', product_id=p.id) }}">
+                                    <img src="{{ url_for('static', filename=p.image) }}">
+                                </a>
+                            </div>
+                            <div class="card-details">
+                                <div class="price-row">
+                                    <a href="{{ url_for('product', product_id=p.id) }}" class="brand">{{ p.name }}</a>
+                                    <a href="{{ url_for('dashboard', userid=p.owner.id) }}" class="seller">{{ p.owner.username }}</a>
+                                </div>
+                                <div class="meta-row">
+                                    <span class="price">£{{ p.price }}</span>
+                                    <span>{{ p.category }}</span>
+                                </div>
+                            </div>
+                        </article>
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

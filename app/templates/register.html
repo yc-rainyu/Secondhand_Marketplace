@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<!-- content -->
+<main>
+    <div class="auth-wrapper_register">
+        <div class="auth-card">
+            <h2>Register</h2>
+
+            <form method="POST" class="auth-form">
+                {{ form.hidden_tag() }}
+
+                <div class="form-group">
+                    <label>{{ form.username.label() }}</label>
+                    {{ form.username(placeholder="Enter your new username") }}
+                </div>
+
+                <div class="form-group">
+                    <label>{{ form.email.label() }}</label>
+                    {{ form.email(placeholder="Example@gmail.com", type="email") }}
+                    {% for error in form.email.errors %}
+                    <span style="color: rgba(255,0,0,0.85);">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="form-group">
+                    <label>{{ form.password.label() }}</label>
+                    {{ form.password(placeholder="Enter your password") }}
+                </div>
+
+                <div class="form-group">
+                    <label>{{ form.password_confirm.label() }}</label>
+                    {{ form.password_confirm(placeholder="Confirm your password") }}
+                    {% for error in form.password_confirm.errors %}
+                    <span style="color: rgba(255,0,0,0.85);">{{ error }}</span>
+                    {% endfor %}
+                </div>
+
+                {{ form.submit(class="btn btn-block", style="background-color: #4a6fa5; color:
+                white;") }}
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? <a href="{{ url_for('login') }}">Log in</a>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- content -->
+{% endblock %}

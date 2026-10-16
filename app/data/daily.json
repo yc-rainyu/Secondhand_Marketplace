@@ -1,0 +1,42 @@
+[
+    {
+        "id": 17317020001234,
+        "seller": "guanyu",
+        "name": "bbb",
+        "category": "digital",
+        "price": 200.0,
+        "email": "010@qq.com",
+        "description": "ffff",
+        "image": "uploads/2025-12-09_161432.png"
+    },
+    {
+        "id": 17317020005678,
+        "seller": "132312123",
+        "name": "21312",
+        "category": "daily",
+        "price": 17.99,
+        "email": "1@g.com",
+        "description": "brand new stuff",
+        "image": "uploads/123.jpg"
+    },
+    {
+        "id": 17317020009123,
+        "seller": "213821",
+        "name": "hsuabd",
+        "category": "daily",
+        "price": 12.9,
+        "email": "2@g.com",
+        "description": "dhsuabcjx",
+        "image": "uploads/Screenshot_2026-02-16_at_16.48.42.png"
+    },
+    {
+        "id": 17735913281787582,
+        "seller": "ddd",
+        "name": "zzz",
+        "category": "daily",
+        "price": 11.0,
+        "email": "123@abcd.com",
+        "description": "saass",
+        "image": "uploads/jpeg"
+    }
+]

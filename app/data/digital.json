@@ -1,0 +1,32 @@
+[
+    {
+        "id": 17317030001234,
+        "seller": "guanyu",
+        "name": "bbb",
+        "category": "digital",
+        "price": 200.0,
+        "email": "010@qq.com",
+        "description": "ffff",
+        "image": "uploads/2025-12-09_161432.png"
+    },
+    {
+        "id": 17317030005678,
+        "seller": "111",
+        "name": "aaa",
+        "category": "digital",
+        "price": 11.0,
+        "email": "123@abc.com",
+        "description": "aaa",
+        "image": "uploads/jpeg"
+    },
+    {
+        "id": 17735916326422269,
+        "seller": "ddd",
+        "name": "cvbndfghjk",
+        "category": "digital",
+        "price": 99.0,
+        "email": "123@abcd.com",
+        "description": "ssss",
+        "image": "uploads/1773591632642_2269.jpeg"
+    }
+]

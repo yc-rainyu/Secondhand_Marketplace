@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit{% endblock %}
+<main class="container">
+<div class="edit-container">
+<h1>Edit item</h1>
+<form action="/edit" method="POST" enctype="multipart/form-data" class="upload-form" novalidate>
+
+<section class="edit-section">
+    <div class="form-group">
+        <label>{{ form.name.label }}</label>
+        {{ form.name(placeholder="Shoes, books etc...") }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.category.label }}</label>
+        {{ form.category() }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.description.label }}</label>
+        {{ form.description(placeholder="Leave some comments...") }}
+    </div>
+
+    <div class="form-group">
+        <label>{{ form.price.label }}</label>
+            <div class="input-with-symbol">
+                <span>£</span>
+                {{ form.price(placeholder=0.0) }}
+            </div>
+    </div>
+
+        </section>
+
+    <div class="form-actions">
+        {{ form.submit(class="btn", style="background-color: #4a6fa5; border-color: #3F7C81; color: white; width: 100px;") }}
+    </div>
+{% block content %}
+
+{% endblock %}
+
+
+

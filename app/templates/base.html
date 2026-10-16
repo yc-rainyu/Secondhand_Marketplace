@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://kit.fontawesome.com/3749968768.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+<!-- navbar -->
+<header class="site-header">
+    <div class="container header-content">
+        <a href="{{ url_for('market') }}" class="logo">SecondLife</a>
+    <div class="search-bar-container">
+        <form action="{{ url_for('search') }}" method="GET" class="search-form" style="display: flex; align-items: center; background: #f4f4f4; border-radius: 25px; padding: 5px 20px; gap: 10px;">
+
+            <input type="text" name="q" placeholder="Searching everything..." value="{{ request.args.get('q', '') }}" style="background: none; border: none; outline: none; flex-grow: 1;">
+
+            <select name="price_range" style="background: none; border: none; border-left: 1px solid #ccc; padding-left: 10px; color: #666; outline: none; cursor: pointer;">
+                <option value="all">All Prices</option>
+                <option value="a" {% if request.args.get('price_range') == 'a' %}selected{% endif %}>0~10</option>
+                <option value="b" {% if request.args.get('price_range') == 'b' %}selected{% endif %}>10~50</option>
+                <option value="c" {% if request.args.get('price_range') == 'c' %}selected{% endif %}>50~100</option>
+                <option value="d" {% if request.args.get('price_range') == 'd' %}selected{% endif %}>100~500</option>
+                <option value="e" {% if request.args.get('price_range') == 'e' %}selected{% endif %}>500~1000</option>
+                <option value="others" {% if request.args.get('price_range') == 'others' %}selected{% endif %}>1000+</option>
+            </select>
+
+            <button type="submit" style="background: none; border: none; cursor: pointer;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2.5">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </form>
+    </div>
+    <nav class="right-nav">
+        <a href="{{ url_for('upload') }}" class="btn"
+            style="background-color: #4a6fa5; color: white; font-size: 16px; ">Sell now</a>
+        {% if user %}
+        <li class="nav-item dropdown list-unstyled">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Hi {{ user.username }}
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{ url_for('dashboard', userid=user.id) }}">Dashboard</a></li>
+                <li><a class="nav-link" href="#">Help</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a href="{{ url_for('logout') }}" class="nav-link nav-link-logout">Logout</a></li>
+            </ul>
+        </li>
+        {% else %}
+        <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+        <a href="{{ url_for('register') }}" class="nav-link">Register</a>
+        {% endif %}
+    </nav>
+</div>
+</header>
+
+
+<!-- flash message -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, msg in messages %}
+<div class='alert alert-{{ category }}'>
+    <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="text-center">{{ msg }}</div>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+<!-- content -->
+{% block content %}{% endblock %}
+{% block scripts %}{% endblock %}
+
+
+<!-- footer -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-columns">
+            <div class="footer-col">
+                <h4>SecondLife</h4>
+                <ul>
+                    <li><a href="http://www.savewalterwhite.com">About us</a></li>
+                    <li><a href="http://www.savewalterwhite.com">Sustainability</a></li>
+                    <li><a href="http://www.savewalterwhite.com">Press</a></li>
+                    <li><a href="http://www.savewalterwhite.com">Advertising</a></li>
+                    <li><a href="http://www.savewalterwhite.com">Accessibility</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Discover</h4>
+                <ul>
+                    <li><a href="http://www.savewalterwhite.com">How it works</a></li>
+                    <li><a href="http://www.savewalterwhite.com">Item Verification</a></li>
+                    <li><a href="http://www.savewalterwhite.com">Mobile apps</a></li>
+                    <li><a href="http://www.savewalterwhite.com">Infoboard</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Help</h4>
+                <ul>
+                    <li><a href="http://www.savewalterwhite.com">Help Centre</a></li>
+                    <li><a href="http://www.savewalterwhite.com">Selling</a></li>
+                    <li><a href="http://www.savewalterwhite.com">Buying</a></li>
+                    <li><a href="http://www.savewalterwhite.com">Trust and Safety</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <ul class="legal-links">
+                <li><a href="http://www.savewalterwhite.com">Privacy Centre</a></li>
+                <li><a href="http://www.savewalterwhite.com">Cookie Policy</a></li>
+                <li><a href="http://www.savewalterwhite.com">Cookie Settings</a></li>
+                <li><a href="http://www.savewalterwhite.com">Terms & Conditions</a></li>
+                <li><a href="http://www.savewalterwhite.com">Our Platform</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+</html>

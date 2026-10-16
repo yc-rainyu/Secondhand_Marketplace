@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ dashboard_user.username }}'s Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- content -->
+<main class="dashboard-page">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <section class="info-card dashboard-profile-card">
+                    <h1 class="dashboard-username">{{ dashboard_user.username }}</h1>
+                    {% if user and user.id == dashboard_user.id %}
+                    <p class="dashboard-email text-muted mb-0">Email: {{ dashboard_user.email }}</p>
+                    {% endif %}
+                </section>
+            </div>
+        </div>
+
+        <div class="row">
+            {% if user and form %}
+            <div class="col-lg-4 mb-4">
+                <section class="info-card dashboard-edit-card">
+                    <h2 class="dashboard-section-title">Edit profile</h2>
+                    <form method="POST" action="{{ url_for('dashboard', userid=dashboard_user.id) }}">
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            <label>{{ form.username.label }}</label>
+                            {{ form.username() }}
+                        </div>
+                        <div class="form-group">
+                            <label>{{ form.password.label }}</label>
+                            {{ form.password(placeholder="Leave blank to keep current password") }}
+                        </div>
+                        <div class="form-group">
+                            <label>{{ form.password_confirm.label }}</label>
+                            {{ form.password_confirm() }}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            {{ form.submit.label.text }}
+                        </button>
+                    </form>
+                </section>
+            </div>
+            {% endif %}
+
+            <div class="{% if user and form %}col-lg-8{% else %}col-12{% endif %}">
+                <section class="info-card dashboard-products-card">
+                    {% if user and user.id == dashboard_user.id %}
+                    <h2 class="dashboard-section-title">Your products</h2>
+                    {% else %}
+                    <h2 class="dashboard-section-title">{{ dashboard_user.username }}'s products</h2>
+                    {% endif %}
+
+                    {% if user_products %}
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in user_products %}
+                            <tr>
+                                <td>
+                                    <a href="{{ url_for('product', product_id=product.id) }}" class="product-link">{{ product.name }}</a>
+                                </td>
+                                <td>{{ product.category }}</td>
+                                <td>£{{ product.price }}</td>
+                                <td>
+                                    {% if user and user.id == dashboard_user.id %}
+                                        <a href="{{ url_for('edit', product_id=product.id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                                        <form action="{{ url_for('delete', product_id=product.id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete this product?');">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="dashboard-empty-state">
+                        {% if user and user.id == dashboard_user.id %}
+                        <p>You don’t have any products yet.</p>
+                        <a href="{{ url_for('upload') }}" class="btn btn-primary">Sell your first item</a>
+                        {% else %}
+                        <p>This user has no products yet.</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

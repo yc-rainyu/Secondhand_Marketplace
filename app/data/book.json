@@ -1,0 +1,32 @@
+[
+    {
+        "id": 17317010001234,
+        "seller": "guanyu",
+        "name": "bbb",
+        "category": "digital",
+        "price": 200.0,
+        "email": "010@qq.com",
+        "description": "ffff",
+        "image": "uploads/2025-12-09_161432.png"
+    },
+    {
+        "id": 17317010005678,
+        "seller": "3213",
+        "name": "31231",
+        "category": "book",
+        "price": 123.0,
+        "email": "as12@g.com",
+        "description": "hello",
+        "image": "uploads/Screenshot_2025-10-21_at_18.29.03.png"
+    },
+    {
+        "id": 17317010009123,
+        "seller": "h1u3",
+        "name": "udhasdh",
+        "category": "book",
+        "price": 12.023,
+        "email": "1@g.com",
+        "description": "eubdjbbc",
+        "image": "uploads/Screenshot_2025-10-21_at_18.29.03.png"
+    }
+]

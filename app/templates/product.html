@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - Details{% endblock %}
+
+{% block content %}
+<!-- content -->
+<main class="container">
+    <div class="product-detail-layout">
+
+        <div class="product-gallery">
+            <div class="main-image">
+                <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+            </div>
+        </div>
+
+        <aside class="product-info-sidebar">
+            <div class="info-card">
+                <h2 class="product-price">£{{ product.price }}</h2>
+                <hr>
+                <div class="product-specs">
+                    <div class="spec-item">
+                        <span>Category</span>
+                        <strong>{{ product.category|capitalize }}</strong>
+                    </div>
+                    {% if seller %}
+                    <div class="spec-item">
+                        <span>Seller</span>
+                        <strong>{{ seller.username }}</strong>
+                    </div>
+                    {% endif %}
+                    {% if user and seller %}
+                    <div class="spec-item">
+                        <span>Contact</span>
+                        <strong>{{ seller.email }}</strong>
+                    </div>
+                    {% endif %}
+                </div>
+                <hr>
+                <h2 class="product-title">{{ product.name }}</h2>
+                <p class="product-description">
+                    {{ product.description }}
+                </p>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary btn-block" style="font-size: 18px;">Add to cart</button>
+                    <button class="btn btn-outline btn-block" style="font-size: 18px;">Contact seller</button>
+                </div>
+            </div>
+
+            {% if seller %}
+            <div class="seller-card">
+                <div class="seller-header">
+                    <div class="seller-name">
+                        <strong>{{ seller.username }}</strong>
+                    </div>
+                </div>
+                <a href="{{ url_for('dashboard', userid=seller.id) }}" class="view-closet">
+                    More from this seller →
+                </a>
+            </div>
+            {% endif %}
+        </aside>
+
+    </div>
+</main>
+<!-- content -->
+
+{% endblock %}
